@@ -1,7 +1,7 @@
 catfacts
 ==========
 
-[Cat Facts](https://github.com/steem-third-party/catfacts) is a fork for [Freakazoid(https://github.com/inertia186/freakazoid) that uses [Cat Facts API](https://catfact.ninja) responses to STEEM as bot replies.  Unlike Freakazoid, this bot works without having to register for an API key.
+[Cat Facts](https://github.com/steem-third-party/catfacts) is a fork for [Freakazoid](https://github.com/inertia186/freakazoid) that uses [Cat Facts API](https://catfact.ninja) responses to STEEM as bot replies.  Unlike Freakazoid, this bot works without having to register for an API key.
 
 <center>
   <img src="https://i.imgur.com/Iaz1jZi.jpg" />
@@ -11,7 +11,11 @@ catfacts
 
 This bot will automatically reply to posts and comments that reply to and mention the bot.  The replies are provided by the Cat Facts API.
 
-The main reference implementation of Cat Facts is @catfacts.
+The main reference implementation of Cat Facts is @catfacts.  For example:
+
+<center>
+  <img src="https://i.imgur.com/KUvEKoU.png" />
+</center>
 
 ---
 
