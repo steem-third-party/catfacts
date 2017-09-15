@@ -11,8 +11,7 @@ module Freakazoid
         freakazoid: {
           block_mode: 'irreversible',
           account_name: 'social',
-          posting_wif: '5JrvPrQeBBvCRdjv29iDvkwn3EQYZ9jqfAHzrCyUvfbEbRkrYFC',
-          cleverbot_api_key: 'ZmFrZSBjbGV2ZXJib3QgYXBpIGtleQ'
+          posting_wif: '5JrvPrQeBBvCRdjv29iDvkwn3EQYZ9jqfAHzrCyUvfbEbRkrYFC'
         }, chain_options: {
           chain: 'steem',
           url: 'https://steemd.steemit.com'
@@ -20,8 +19,8 @@ module Freakazoid
       )
     end
     
-    def test_reset_clever
-      refute reset_clever
+    def test_random_cat_facts
+      assert random_cat_fact
     end
     
     def test_name_error

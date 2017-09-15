@@ -1,29 +1,17 @@
-freakazoid
+catfacts
 ==========
 
-[Freakazoid](https://github.com/inertia186/freakazoid) is a cleverbot integrated bot for STEEM.
-
-#### New Features
-
-* Added account name as Conversation ID so that Cleverbot maintains separate conversations with each account.
-* Now sending a random sub-string for interaction greater than 140 characters.  This is so long posts don't flood Cleverbot, but also makes it seem like the bot read a specific part of the post and is reacting to it, just like a typical human.
-* Added `except_apps` and `only_apps` config options, which helps avoid endless bot-on-bot conversations.
-* The bot will now follow users who meet certain criteria.
-* Added the ability to vote and self-vote if certain criteria have been met.
+[Cat Facts](https://github.com/steem-third-party/catfacts) is a fork for [Freakazoid(https://github.com/inertia186/freakazoid) that uses [Cat Facts API](https://catfact.ninja) responses to STEEM as bot replies.  Unlike Freakazoid, this bot works without having to register for an API key.
 
 <center>
-  <img src="http://i.imgur.com/635LS2j.jpg" />
+  <img src="https://i.imgur.com/Iaz1jZi.jpg" />
 </center>
 
 ---
 
-This bot will automatically reply to posts and comments that reply to and mention the bot.  The replies are provided by the Cleverbot API.
+This bot will automatically reply to posts and comments that reply to and mention the bot.  The replies are provided by the Cat Facts API.
 
-The main reference implementation of Freakazoid is @banjo.  For example:
-
-<center>
-  <img src="http://i.imgur.com/zNN8tPE.png" />
-</center>
+The main reference implementation of Cat Facts is @catfacts.
 
 ---
 
@@ -57,8 +45,8 @@ You can try the system version of `ruby`, but if you have issues with that, use 
 First, clone this git and install the dependencies:
 
 ```bash
-$ git clone https://github.com/inertia186/freakazoid.git
-$ cd freakazoid
+$ git clone https://github.com/steem-third-party/catfacts.git
+$ cd catfacts
 $ bundle install
 ```
 
@@ -67,19 +55,15 @@ $ bundle install
 Edit the `config.yml` file.
 
 ```yaml
-:freakazoid:
+:catfacts:
   :block_mode: irreversible
   :account_name: <your STEEM bot name>
   :posting_wif: <your STEEM bot posting key>
-  :cleverbot_api_key: <your cleverbot api key>
 
 :chain_options:
   :chain: steem
   :url: https://steemd.steemit.com
 ```
-
-In order to integrate with Cleverbot, you need to register your bot and get a key: https://www.cleverbot.com/api/
-
 
 Edit the `support/reply.md` template (optional).
 
@@ -91,9 +75,9 @@ Then run it:
 $ rake run
 ```
 
-Freakazoid will now do it's thing.  Check here to see an updated version of this bot:
+Cat Facts will now do it's thing.  Check here to see an updated version of this bot:
 
-https://github.com/inertia186/freakazoid
+https://github.com/steem-third-party/catfacts
 
 ---
 
@@ -120,7 +104,7 @@ If you're still having problems, I suggest starting a new clone.
 
 #### Troubleshooting
 
-##### Problem: Everything looks ok, but every time Freakazoid tries to reply, I get this error:
+##### Problem: Everything looks ok, but every time Cat Facts tries to reply, I get this error:
 
 ```
 Unable to reply with <account>.  Invalid version
@@ -143,9 +127,9 @@ https://ripplerm.github.io/steem-servers/
 ## Tests
 
 * Clone the client repository into a directory of your choice:
-  * `git clone https://github.com/inertia186/freakazoid.git`
+  * `git clone https://github.com/inertia186/catfacts.git`
 * Navigate into the new folder
-  * `cd freakazoid`
+  * `cd catfacts`
 * Basic tests can be invoked as follows:
   * `rake`
 * To run tests with parallelization and local code coverage:
@@ -153,8 +137,8 @@ https://ripplerm.github.io/steem-servers/
 
 ## Get in touch!
 
-If you're using Freakazoid, I'd love to hear from you.  Drop me a line and tell me what you think!  I'm @inertia on STEEM and Discord.
+If you're using Cat Facts, I'd love to hear from you.  Drop me a line and tell me what you think!  I'm @inertia on STEEM and Discord.
   
 ## License
 
-I don't believe in intellectual "property".  If you do, consider Freakazoid as licensed under a Creative Commons [![CC0](http://i.creativecommons.org/p/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/) License.
+I don't believe in intellectual "property".  If you do, consider Cat Facts as licensed under a Creative Commons [![CC0](http://i.creativecommons.org/p/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/) License.

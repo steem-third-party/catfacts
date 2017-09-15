@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors = ['Anthony Martin']
   spec.email = ['freakazoid@martin-studio.com']
 
-  spec.summary = %q{Cleverbot integration for STEEM.}
+  spec.summary = %q{Cat facts integration for STEEM.}
   spec.description = %q{That is (hopefully) very clever.}
   spec.homepage = 'https://github.com/inertia186/freakazoid'
   spec.license = 'CC0 1.0'
@@ -34,7 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'delorean'
 
   spec.add_dependency 'krang'
-  spec.add_dependency 'rest-client' # required by ruby-cleverbot-api
-  spec.add_dependency 'ruby-cleverbot-api', '~> 1.0', '>= 1.0.6'
   spec.add_dependency 'rdiscount'
 end

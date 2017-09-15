@@ -1,4 +1,5 @@
 require 'rdiscount'
+require 'open-uri'
 
 module Freakazoid
   require 'freakazoid/config'
@@ -7,12 +8,10 @@ module Freakazoid
     include Krang::Utils
     include Config
     
-    def reset_clever
-      @clever = nil
-    end
-    
-    def clever
-      @clever ||= Cleverbot.new(cleverbot_api_key)
+    def random_cat_fact
+      cat = JSON[open('https://catfact.ninja/fact').read]
+      
+      cat['fact']
     end
     
     def merge(options = {})
