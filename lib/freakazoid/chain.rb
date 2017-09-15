@@ -66,6 +66,9 @@ module Freakazoid
     end
     
     def reply(comment)
+      metadata = JSON.parse(comment.json_metadata) rescue {}
+      tags = metadata['tags'] || []
+      
       # We are using asynchronous replies because sometimes the blockchain
       # rejects replies that happen too quickly.
       thread = Thread.new do
