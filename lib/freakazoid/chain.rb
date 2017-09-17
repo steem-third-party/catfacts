@@ -67,7 +67,7 @@ module Freakazoid
     
     def following_tags?(comment)
       metadata = JSON.parse(comment.json_metadata) rescue {}
-      tags = metadata['tags'] || []
+      tags = ([metadata['tags']] || []).flatten
       
       (follow_tags & tags).any?
     end
