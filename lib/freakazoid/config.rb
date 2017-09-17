@@ -14,6 +14,10 @@ module Freakazoid
       (default_value(:except_apps) || config[app_key][:except_apps]).to_s.split(' ')
     end
     
+    def follow_tags
+      (default_value(:follow_tags) || config[app_key][:follow_tags]).to_s.split(' ')
+    end
+    
     def only_apps
       (default_value(:only_apps) || config[app_key][:only_apps]).to_s.split(' ')
     end

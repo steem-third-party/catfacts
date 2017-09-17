@@ -15,6 +15,9 @@
   # other instances of freakazoid and all known engagement bots.
   :except_apps: freakazoid meep_bot
   
+  # List of tags that this bot will automatically reply to.
+  :follow_tags: cat cats caturday marmalade
+  
   # List of apps for this bot to pay attention to (whitelist).  Useful if you'd
   # like to focus only on these apps/sites.
   # :only_apps: steemit esteem chainbb streemian busy 

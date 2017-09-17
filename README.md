@@ -9,6 +9,12 @@ catfacts
 
 ---
 
+#### New Features
+
+* `follow_tags` a list of tags for this bot to automatically reply to.
+
+---
+
 This bot will automatically reply to posts and comments that reply to and mention the bot.  The replies are provided by the Cat Facts API.
 
 The main reference implementation of Cat Facts is @catfacts.  For example:

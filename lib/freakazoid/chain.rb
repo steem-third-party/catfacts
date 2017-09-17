@@ -65,6 +65,13 @@ module Freakazoid
       following.include? account
     end
     
+    def following_tags?(comment)
+      metadata = JSON.parse(comment.json_metadata) rescue {}
+      tags = metadata['tags'] || []
+      
+      (follow_tags & tags).any?
+    end
+    
     def reply(comment)
       metadata = JSON.parse(comment.json_metadata) rescue {}
       tags = metadata['tags'] || []

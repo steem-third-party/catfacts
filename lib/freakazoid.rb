@@ -32,8 +32,10 @@ module Freakazoid
           
           if comment.parent_author == account_name
             debug "Reply to #{account_name} by #{comment.author}"
+          elsif following_tags?(comment)
+            debug "Matched tag by #{comment.author}"
           else
-            # Not a reply, check if there's a mention instead.
+            # Not a reply tagged, check if there's a mention instead.
             users = metadata['users'] || []
             next unless users.include? account_name
           end
