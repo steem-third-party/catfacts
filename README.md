@@ -12,6 +12,7 @@ catfacts
 #### New Features
 
 * `follow_tags` a list of tags for this bot to automatically reply to.
+* `max_follow_tags_reply_depth` sets the depth for `follow_tags` to automatically trigger a posts/replies.  The default of 0 will only allow this bot to reply to the root post and none of the replies.  Setting 1 allows the bot to reply to the root post and the first reply.
 
 ---
 

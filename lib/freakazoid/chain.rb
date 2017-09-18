@@ -66,6 +66,7 @@ module Freakazoid
     end
     
     def following_tags?(comment)
+      return false if comment.depth > max_follow_tags_reply_depth
       metadata = JSON.parse(comment.json_metadata) rescue {}
       tags = ([metadata['tags']] || []).flatten
       

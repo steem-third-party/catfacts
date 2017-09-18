@@ -18,6 +18,10 @@ module Freakazoid
       (default_value(:follow_tags) || config[app_key][:follow_tags]).to_s.split(' ')
     end
     
+    def max_follow_tags_reply_depth
+      (default_value(:max_follow_tags_reply_depth) || config[app_key][:max_follow_tags_reply_depth] || 0).to_i
+    end
+    
     def only_apps
       (default_value(:only_apps) || config[app_key][:only_apps]).to_s.split(' ')
     end
