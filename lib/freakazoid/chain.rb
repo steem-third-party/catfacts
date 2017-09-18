@@ -66,12 +66,15 @@ module Freakazoid
     end
     
     def following_tags?(comment)
-      comment = find_comment(comment.author, comment.permlink)
-      return false if comment.depth > max_follow_tags_reply_depth
       metadata = JSON.parse(comment.json_metadata) rescue {}
       tags = ([metadata['tags']] || []).flatten
       
-      (follow_tags & tags).any?
+      return false if (follow_tags & tags).none?
+      comment = find_comment(comment.author, comment.permlink)
+      
+      return false if comment.depth > max_follow_tags_reply_depth
+      
+      true
     end
     
     def reply(comment)
