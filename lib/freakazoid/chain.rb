@@ -185,8 +185,14 @@ module Freakazoid
             elsif message.to_s =~ /STEEMIT_MAX_PERMLINK_LENGTH: permlink is too long/
               error "Failed comment: permlink too long"
               break
+            elsif message.to_s =~ /You have already voted in a similar way./
+              error "Failed comment/vote: Already voted/commented (original author did an edit)."
+              break
             elsif message.to_s =~ /missing required posting authority/
               error "Failed vote: Check posting key."
+              break
+            elsif message.to_s =~ /bandwidth limit exeeded/
+              error "Failed comment: bandwidth limit exeeded."
               break
             elsif message.to_s =~ /unknown key/
               error "Failed vote: unknown key (testing?)"
