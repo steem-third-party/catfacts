@@ -43,7 +43,67 @@ module Freakazoid
       following.include? account
     end
     
-    def following_tags?(comment)
+    def voted_for_authors
+      @voted_for_authors ||= {}
+      limit = if @voted_for_authors.empty?
+        10000
+      else
+        300
+      end
+      
+      semaphore.synchronize do
+        response = nil
+        with_api do |api| 
+          response = api.get_account_history(account_name, -limit, limit)
+        end
+        result = response.result
+        result.reverse.each do |i, tx|
+          op = tx['op']
+          next unless op[0] == 'vote'
+          
+          timestamp = Time.parse(tx['timestamp'] + 'Z')
+          latest = @voted_for_authors[op[1]['author']]
+          
+          if latest.nil? || latest < timestamp
+            @voted_for_authors[op[1]['author']] = timestamp
+          end
+        end
+      end
+      
+      @voted_for_authors
+    end
+
+    def already_voted_for?(author)
+      return false if unique_author == 0
+      
+      now = Time.now.utc
+      voted_in_threshold = []
+      
+      voted_for_authors.each do |author, vote_at|
+        if now - vote_at < unique_author * 60
+          voted_in_threshold << author
+        end
+      end
+      
+      return true if voted_in_threshold.include? author
+      
+      false
+    end
+
+    def voted?(comment)
+      return false if comment.nil?
+      voters = comment.active_votes
+      
+      if voters.map(&:voter).include? account_name
+        debug "Already voted for: #{comment.author}/#{comment.permlink} (id: #{comment.id})"
+        true
+      else
+        false
+      end
+    end
+
+    def reply(comment)
+      clever_response = nil
       metadata = JSON.parse(comment.json_metadata) rescue {}
       tags = ([metadata['tags']] || []).flatten
       
@@ -92,7 +152,7 @@ module Freakazoid
           reply_metadata[:tags] = [tags.first] if tags.any?
           reply_permlink = "re-#{author.gsub(/[^a-z0-9\-]+/, '-')}-#{permlink.split('-')[0..5][1..-2].join('-')}-#{Time.now.utc.strftime('%Y%m%dt%H%M%S%Lz')}" # e.g.: 20170225t235138025z
           
-          comment = {
+          reply = {
             type: :comment,
             parent_permlink: permlink,
             author: account_name,
@@ -103,7 +163,7 @@ module Freakazoid
             parent_author: author
           }
           
-          if vote_weight != 0 && followed_by?(author)
+          if vote_weight != 0 && followed_by?(author) && !voted?(comment)
             votes << {
               type: :vote,
               voter: account_name,
@@ -143,7 +203,7 @@ module Freakazoid
             end
           end
           
-          tx.operations << comment
+          tx.operations << reply
           
           if votes.size > 0
             tx.operations << votes[0]

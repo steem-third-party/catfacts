@@ -39,6 +39,7 @@ module Freakazoid
             # Not a reply tagged, check if there's a mention instead.
             users = metadata['users'] || []
             next unless users.include? account_name
+            debug "Mention of #{account_name} by #{comment.author}"
           end
           
           reply(find_comment(comment.author, comment.permlink))
