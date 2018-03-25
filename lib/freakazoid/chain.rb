@@ -10,25 +10,7 @@ module Freakazoid
     end
     
     def follow_api
-      with_follow_api
-    end
-    
-    def with_follow_api(&block)
-      loop do
-        @follow_api ||= Radiator::FollowApi.new(chain_options)
-        
-        return @follow_api if block.nil?
-        
-        begin
-          yield @follow_api
-          break
-        rescue => e
-          warning "API exception, retrying (#{e})", e
-          reset_follow_api
-          sleep backoff
-          redo
-        end
-      end
+      @follow_api ||= Radiator::FollowApi.new(chain_options)
     end
     
     def followed_by?(account)
@@ -37,14 +19,12 @@ module Freakazoid
 
       until count == followers.size
         count = followers.size
-        response = nil
-        with_follow_api do |follow_api|
-          response = follow_api.get_followers(account_name, followers.last, 'blog', 1000)
+        follow_api.get_followers(account_name, followers.last, 'blog', 1000) do |follows, error|
+          followers += follows.map(&:follower)
+          followers = followers.uniq
         end
-        followers += response.result.map(&:follower)
-        followers = followers.uniq
       end
-
+      
       followers.include? account
     end
     
@@ -54,12 +34,10 @@ module Freakazoid
 
       until count == following.size
         count = following.size
-        response = nil
-        with_follow_api do |follow_api|
-          response = @follow_api.get_following(account_name, following.last, 'blog', 100)
+        follow_api.get_following(account_name, following.last, 'blog', 100) do |follows, error|
+          following += follows.map(&:following)
+          following = following.uniq
         end
-        following += response.result.map(&:following)
-        following = following.uniq
       end
 
       following.include? account
@@ -135,6 +113,12 @@ module Freakazoid
       return false if comment.depth > max_follow_tags_reply_depth
       
       true
+    end
+    
+    def already_replied?(comment)
+      !!(api.get_content_replies(comment.author, comment.permlink) do |replies|
+        replies.find{ |r| r.author == account_name }
+      end || false)
     end
     
     def reply(comment)

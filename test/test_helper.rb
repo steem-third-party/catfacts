@@ -32,6 +32,7 @@ end
 
 if ENV["HELL_ENABLED"]
   require "minitest/hell"
+  require 'minitest/proveit'
   
   class Minitest::Test
     # See: https://gist.github.com/chrisroos/b5da6c6a37ac8af5fe78

@@ -8,8 +8,18 @@ module Freakazoid
     include Krang::Utils
     include Config
     
+    BLACKIST_TXT = "#{File.dirname(__FILE__)}/../../support/blacklist.txt"
+    
     def random_cat_fact
-      cat = JSON[open('https://catfact.ninja/fact').read]
+      cat = nil
+      
+      loop do
+        cat = JSON[open('https://catfact.ninja/fact').read]
+        
+        redo if File.open(BLACKIST_TXT).readlines.include? cat['fact']
+        
+        break
+      end
       
       cat['fact']
     end
