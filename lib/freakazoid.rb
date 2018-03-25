@@ -29,7 +29,8 @@ module Freakazoid
           
           next if except_apps.any? && except_apps.include?(app_name)
           next if only_apps.any? && !only_apps.include?(app_name)
-          
+          next if already_replied?(comment)
+
           if comment.parent_author == account_name
             debug "Reply to #{account_name} by #{comment.author}"
           elsif following_tags?(comment)
